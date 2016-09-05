@@ -27,11 +27,18 @@ cat("Sample Mean:", mean_sampleMean, "\nTheoretical Mean:",meanTheo)
 cat("Sample Variance:", var_sampleMean, "\nTheoretical Variance:", varTheo )
 
 # Plot.  aes(y=..) must be in geom_hist
+# to use legend, colour must in be in aes()
+
+cols <- c("Sample Distribution" ="blue","Normal Distribution" ="red", "Bar"="grey")
 g <- ggplot(sampleMean) + aes(x=sampleMean) + 
   geom_histogram(aes(y = ..density..),binwidth = 0.2, colour = "grey", fill="white") +
-  geom_density(alpha = 0.4, fill = "#0072B2", colour = "blue") + 
+  geom_density(alpha = 0.4, fill = "#0072B2", aes(colour = "Sample Distribution")) + 
   geom_vline(aes(xintercept = mean_sampleMean), colour = "blue", linetype = "dashed", size = 0.8) +
-  stat_function(fun = dnorm, args = list(mean = meanTheo, sd = stdTheo), colour = "red") +
-  geom_vline(aes(xintercept = meanTheo), colour = "red")
+  stat_function(fun = dnorm, args = list(mean = meanTheo, sd = stdTheo), aes(colour = "Normal Distribution")) +
+  geom_vline(aes(xintercept = meanTheo), colour = "red") +
+  labs(title = "Sample Means vs Normal Distribution", x = "Means", y = "Density") +
+  scale_colour_manual(name = "Legend", values = cols) +
+  theme(legend.key = element_rect(linetype = 0, colour = "grey", fill = 0)) +
+  theme(legend.position = c(0.9, 0.8), legend.background = element_rect(color = "black", fill = "grey90", size = 1, linetype = "solid"))
   
 print(g)
