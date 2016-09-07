@@ -3,8 +3,7 @@ title: "Statistical Inference Course Project 1"
 author: "Chuk Yong"
 date: "5 September 2016"
 output: 
-  html_document:
-    keep_md: true
+  word_document
 
 ---
 ## Coursera Statistical Inference Course Project Part 1: Simulation Exercise
